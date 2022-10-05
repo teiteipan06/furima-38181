@@ -22,18 +22,17 @@
 
 ## items テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| image        | text       | null: false                    |
-| name         | string     | null: false                    |
-| description  | text       | null: false                    |
-| category     | integer    | null: false                    |
-| status       | integer    | null: false                    |
-| shipping_fee | integer    | null: false                    |
-| send_from    | integer    | null: false                    |
-| days_to_ship | integer    | null: false                    |
-| price        | integer    | null: false                    |
-| user         | references | null: false, foreign_key: true |
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| name            | string     | null: false                    |
+| description     | text       | null: false                    |
+| category_id     | integer    | null: false                    |
+| status_id       | integer    | null: false                    |
+| shipping_fee_id | integer    | null: false                    |
+| country_id      | integer    | null: false                    |
+| days_to_ship_id | integer    | null: false                    |
+| price           | integer    | null: false                    |
+| user            | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -65,34 +64,21 @@
 
 ### Association
 
+- has_one :destination
 - belongs_to :item
 - belongs_to :user
-----------------------------
-
-## cards テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| card_num      | integer    | null: false                    |
-| expire_date   | date       | null: false                    |
-| security_code | integer    | null: false                    |
-| order         | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :order
 ----------------------------
 
 ## destinations テーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
-| post_code     | integer    | null: false                    |
-| country       | integer    | null: false                    |
+| post_code     | string     | null: false                    |
+| country_id    | integer    | null: false                    |
 | city          | string     | null: false                    |
 | banchi        | string     | null: false                    |  
 | building_name | string     |                                |  
-| phone_number  | integer    | null: false                    |  
+| phone_number  | string     | null: false                    |  
 | order         | references | null: false, foreign_key: true |
 
 ### Association
