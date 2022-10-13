@@ -6,4 +6,5 @@ class Item < ApplicationRecord
   belongs_to :category
   belongs_to :status
   belongs_to :shipping_fee
+  belongs_to :country
 end
