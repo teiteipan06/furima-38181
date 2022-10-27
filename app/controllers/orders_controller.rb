@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
+  before_action :contributor_confirmation
 
   def index
     @order_destination = OrderDestination.new
@@ -25,7 +26,11 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order_destination).permit(:post_code, :country_id, :city, :banchi, :building_name, :phone_number).merge(item_id: @item.id, user_id: current_user.id, token: params[:token])
+    params.require(:order_destination).permit(:post_code, :country_id, :city, :banchi, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+  end
+
+  def contributor_confirmation
+    redirect_to root_path if current_user.id == @item.user.id
   end
 
   def pay_item
