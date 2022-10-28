@@ -50,13 +50,18 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号が英数混合では保存できないこと' do
-        @order_destination.phone_number = '００００００００aaa'
+      it '電話番号に半角数字以外が含まれている場合は購入できない' do
+        @order_destination.phone_number = '00000000aaa'
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
       end
-      it '電話番号が11桁以内の数値のみでなければ保存できないこと' do
-        @order_destination.phone_number = '０００００００００００'
+      it '電話番号が12桁以上だと購入できない' do
+        @order_destination.phone_number = '000000000000'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が9桁以下だと購入できない' do
+        @order_destination.phone_number = '00000000'
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
       end
